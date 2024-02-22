@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import EditTodo from "./EditTodo";
 
 function ListTodo() {
 
@@ -31,11 +32,6 @@ function ListTodo() {
         }
     };
 
-    // edit todo function
-    const editTodo = (id) => {
-        console.log(id);
-    };
-
 
     return (
 
@@ -62,10 +58,10 @@ function ListTodo() {
                                 {todo.description}
                             </th>
                             <td className="px-6 py-4">
-                                <button onClick={() => editTodo(todo.todo_id)} className="font-medium text-blue-600 hover:underline">Edit</button>
+                                <EditTodo todo={todo} />
                             </td>
                             <td className="px-6 py-4">
-                                <button onClick={() => deleteTodo(todo.todo_id)} className="font-medium text-red-600 hover:underline">Delete</button>
+                                <button onClick={() => deleteTodo(todo.todo_id)} className="py-1 px-3 rounded-md bg-red-500 text-white hover:bg-red-600">Delete</button>
                             </td>
                         </tr>
                     ))}

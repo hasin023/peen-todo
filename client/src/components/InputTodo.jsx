@@ -17,6 +17,8 @@ function InputTodo() {
         } catch (err) {
             console.error(err.message);
         }
+
+        setDescription("");
     }
 
     return (
