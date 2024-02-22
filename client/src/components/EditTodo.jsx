@@ -2,6 +2,29 @@ import { useState } from "react";
 
 function EditTodo({ todo }) {
     const [showModal, setShowModal] = useState(false);
+    const [description, setDescription] = useState(todo.description);
+
+    const updateDescription = async (e) => {
+        e.preventDefault();
+        try {
+            const body = { description };
+            const response = await fetch(`http://localhost:8000/todos/${todo.todo_id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            window.location = "/";
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
+    const handleModalClose = () => {
+        setShowModal(false);
+        setDescription(todo.description);
+    };
+
     return (
         <div>
             <button onClick={() => setShowModal(true)} className="py-1 px-3 rounded-md bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
@@ -16,7 +39,7 @@ function EditTodo({ todo }) {
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                        onClick={() => setShowModal(false)}
+                                        onClick={handleModalClose}
                                     >
                                         <span className="text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
                                             ×
@@ -25,8 +48,8 @@ function EditTodo({ todo }) {
                                 </div>
                                 <div className="relative p-6 flex flex-col">
                                     <form className="flex flex-col justify-center mt-6">
-                                        <input type="text" className="p-2 border border-gray-300 rounded-md mb-6" value={todo.description} />
-                                        <button className="p-2 rounded-md bg-green-600 text-white">Save Changes</button>
+                                        <input type="text" className="p-2 border border-gray-300 rounded-md mb-6" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                        <button onClick={(e) => updateDescription(e)} className="p-2 rounded-md bg-green-600 text-white">Save Changes</button>
                                     </form>
                                 </div>
                             </div>
