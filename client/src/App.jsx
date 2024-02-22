@@ -1,7 +1,11 @@
+import InputTodo from "./components/InputTodo"
+
 function App() {
 
   return (
-    <div className="text-3xl text-pink-700 font-poppins">Goodbye World</div>
+    <div className="px-60 text-center">
+      <InputTodo />
+    </div>
   )
 }
 
