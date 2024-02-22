@@ -19,6 +19,24 @@ function ListTodo() {
     });
 
 
+    // delete todo function
+    const deleteTodo = async (id) => {
+        try {
+            await fetch(`http://localhost:8000/todos/${id}`, {
+                method: "DELETE"
+            });
+            setTodos(todos.filter(todo => todo.todo_id !== id));
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    // edit todo function
+    const editTodo = (id) => {
+        console.log(id);
+    };
+
+
     return (
 
         <div className="mt-6 relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -44,10 +62,10 @@ function ListTodo() {
                                 {todo.description}
                             </th>
                             <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-blue-600 hover:underline">Edit</a>
+                                <button onClick={() => editTodo(todo.todo_id)} className="font-medium text-blue-600 hover:underline">Edit</button>
                             </td>
                             <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-red-600 hover:underline">Delete</a>
+                                <button onClick={() => deleteTodo(todo.todo_id)} className="font-medium text-red-600 hover:underline">Delete</button>
                             </td>
                         </tr>
                     ))}
